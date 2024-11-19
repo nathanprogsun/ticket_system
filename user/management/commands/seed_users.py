@@ -1,4 +1,5 @@
 import random
+import uuid
 from django.core.management.base import BaseCommand
 from user.models import User
 from faker import Faker
@@ -21,7 +22,7 @@ class Command(BaseCommand):
         # Prepare list of user objects for bulk creation
         users = [
             User(
-                email=fake.email(domain=random.choice(domains)),
+                email=f"{str(uuid.uuid4())[:10]}@{random.choice(domains)}",
                 first_name=fake.first_name(),
                 last_name=fake.last_name(),
                 password=fake.password(),
