@@ -158,14 +158,18 @@ class Command(BaseCommand):
             if last_created_at:
                 query = query.filter(created_at__gt=last_created_at)
 
-            for ticket in query.order_by("created_at").iterator():
+            for ticket in (
+                query.order_by("created_at").values("id", "created_at").iterator()
+            ):
                 updates.append(
                     Ticket(
-                        id=ticket.id, token=uuid.uuid4().hex, updated_at=timezone.now()
+                        id=ticket["id"],
+                        token=uuid.uuid4().hex,
+                        updated_at=timezone.now(),
                     )
                 )
                 processed += 1
-                last_created_at = ticket.created_at
+                last_created_at = ticket["created_at"]
 
                 if len(updates) >= batch_size:
                     total_processed = self._bulk_update_tickets(
