@@ -1,6 +1,8 @@
 # Ticket System
 This project was generated using Django.
 
+[toc]
+
 ## How to Set Up
 This project uses Python as the main language, Pyenv to manage Python environments, and Poetry to manage dependencies.
 
@@ -127,3 +129,21 @@ $ tree .
 └── utils
     └── basemodel.py
 ```
+
+
+## Token Regeneration Solution Summary
+
+Solution for batch token regeneration of million-level tickets:
+
+### Implementation Approach
+- Batch processing strategy with 1000 records per batch(batch-size can be changed)
+- Asynchronous concurrent processing for improved efficiency
+- Checkpoint mechanism for progress tracking and recovery
+- Task queue implementation for concurrency control
+
+### Key Considerations
+- Database Performance: Batch updates to reduce database load
+- Memory Management: Chunked loading to prevent memory overflow
+- Processing Efficiency: Async operations for enhanced throughput
+- Reliability: Checkpoint system ensures task recoverability
+- Monitoring: Real-time logging of processing progress
