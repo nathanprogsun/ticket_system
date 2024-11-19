@@ -5,8 +5,6 @@ services:
     image: mysql:8.0.30
     environment:
       MYSQL_DATABASE: ticket_system_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
     ports:
     - "3306:3306"
